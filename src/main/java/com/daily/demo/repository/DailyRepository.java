@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.daily.demo.dto.DailyDto;
+import com.daily.demo.dto.request.DailyRequest;
 import com.daily.demo.entity.daily.Daily;
 import com.daily.demo.entity.daily.FileInfo;
 
@@ -18,4 +19,9 @@ public interface DailyRepository extends JpaRepository<Daily, Long>, DailyCustom
 
     Long update(DailyDto dailyDto, List<FileInfo> fileInfoList);
 
+    Long updateDaily(DailyRequest request, List<FileInfo> newFileList);
+
+    void delete(Long id);
+
+    Daily fetchQuery(Long id);
 }

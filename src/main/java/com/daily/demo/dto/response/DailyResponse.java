@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.daily.demo.entity.daily.FileInfo;
+import com.daily.demo.entity.daily.enumData.Useyn;
 
 @Getter
 @Setter
@@ -26,6 +27,8 @@ public class DailyResponse {
     private LocalDateTime createdDate;
     private String modifiedBy;
     private LocalDateTime modifiedDate;
+
+    private Useyn useyn;
 
     private List<FileInfo> fileList;
 

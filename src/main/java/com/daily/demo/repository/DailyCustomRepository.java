@@ -14,4 +14,7 @@ public interface DailyCustomRepository {
     Optional<List<DailyDto>> findByDailyId(Long id);
 
     Long update(DailyDto dailyDto, List<FileInfo> fileInfoList);
+
+    void delete(Long id);
+
 }

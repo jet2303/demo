@@ -1,7 +1,9 @@
-package com.daily.demo.dto;
+package com.daily.demo.dto.request;
 
-import java.util.List;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.daily.demo.entity.daily.Daily;
 import com.daily.demo.entity.daily.FileInfo;
@@ -20,23 +22,28 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class DailyDto {
+public class DailyRequest {
     private Long id;
     private String title;
     private String list;
-
-    private Useyn useYn;
 
     private String createdBy;
     private LocalDateTime createdDate;
     private String modifiedBy;
     private LocalDateTime modifiedDate;
 
-    private Long fileInfoId;
-    private String fileName;
-    private String filePath;
-    // private List<String> fileName;
-    // private List<String> filePath;
-    // private List<FileInfo> fileList;
+    private Useyn useyn;
+
+    private List<MultipartFile> fileList;
+
+    public Daily toDaily(DailyRequest request) {
+        return Daily.builder()
+                .id(request.getId())
+                .title(request.getTitle())
+                .list(request.getList())
+                .useYn(request.getUseyn())
+                // .fileInfoList(request.getFileList())
+                .build();
+    }
 
 }

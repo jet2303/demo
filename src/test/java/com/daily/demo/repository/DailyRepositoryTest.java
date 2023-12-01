@@ -18,6 +18,7 @@ import com.daily.demo.config.ConfigService;
 import com.daily.demo.config.QueryDslConfig;
 import com.daily.demo.dto.DailyDto;
 import com.daily.demo.entity.daily.Daily;
+import com.daily.demo.entity.daily.enumData.Useyn;
 import com.daily.demo.util.DatabaseCleanUp;
 
 import java.io.File;
@@ -40,10 +41,10 @@ public class DailyRepositoryTest {
     void init() {
         databaseCleanUp.execute();
 
-        Daily daily1 = new Daily(null, "title1", "list1", null);
-        Daily daily2 = new Daily(null, "title2", "list2", null);
-        Daily daily3 = new Daily(null, "title3", "list3", null);
-        Daily daily4 = new Daily(null, "title4", "list4", null);
+        Daily daily1 = new Daily(null, "title1", "list1", Useyn.Y, null);
+        Daily daily2 = new Daily(null, "title2", "list2", Useyn.Y, null);
+        Daily daily3 = new Daily(null, "title3", "list3", Useyn.Y, null);
+        Daily daily4 = new Daily(null, "title4", "list4", Useyn.Y, null);
 
         MockMultipartFile file1;
         List<MultipartFile> fileInfos = new ArrayList<>();

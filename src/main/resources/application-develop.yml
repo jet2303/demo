@@ -1,6 +1,9 @@
 
 
 # spring.datasource.driver-class-name=org.h2.Driver
+
+server:
+    port: 8080
 spring:
     datasource:
         hikari:
@@ -28,9 +31,14 @@ spring:
             enabled: true
             path: /h2-console
 
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # #  변수  # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+ 
 testfile:
-    path: C:\\Users\\Su\\Desktop\\demo\\src\\test\\resources\\images\\
+    path: C:\Users\Su\Desktop\todoapp\demo\src\test\resources\images\
     name: image1.jpg
 testsave:
-    folder: C:\\Users\\Su\\Desktop\\demo\\src\\test\\resources\\savefolder\\
+    folder: C:\Users\Su\Desktop\todoapp\demo\src\test\resources\savefolder\
 

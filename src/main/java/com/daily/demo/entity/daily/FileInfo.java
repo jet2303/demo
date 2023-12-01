@@ -1,5 +1,6 @@
 package com.daily.demo.entity.daily;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,7 +36,7 @@ public class FileInfo {
     private String fileName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Daily_id")
+    @JoinColumn(name = "daily_id")
     private Daily daily;
 
     void setDaily(Daily daily) {
@@ -43,6 +44,12 @@ public class FileInfo {
     }
 
     public FileInfo(String filePath, String fileName) {
+        this.filePath = filePath;
+        this.fileName = fileName;
+    }
+
+    public FileInfo(Long id, String filePath, String fileName) {
+        this.id = id;
         this.filePath = filePath;
         this.fileName = fileName;
     }

@@ -5,8 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.daily.demo.repository.DailyRepositoryImpl;
-import com.daily.demo.service.DailyServiceImpl;
-import com.daily.demo.service.ifs.DailyService;
+import com.daily.demo.service.daily.DailyServiceImpl;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import jakarta.persistence.EntityManager;
