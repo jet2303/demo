@@ -2,30 +2,26 @@ package com.daily.demo.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import static com.daily.demo.entity.daily.QDaily.*;
 import static com.daily.demo.entity.daily.QFileInfo.*;
 
 import com.daily.demo.dto.DailyDto;
 import com.daily.demo.dto.request.DailyRequest;
+import com.daily.demo.dto.response.DailyResponse;
 import com.daily.demo.entity.daily.Daily;
 import com.daily.demo.entity.daily.FileInfo;
-import com.daily.demo.entity.daily.QDaily;
 import com.daily.demo.entity.daily.enumData.Useyn;
-import com.google.common.collect.Lists;
-import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,9 +46,7 @@ public class DailyRepositoryImpl implements DailyCustomRepository {
                         fileInfo.fileName.as("fileName"), fileInfo.filePath.as("filePath")))
                 .from(daily)
                 .innerJoin(daily.fileInfoList, fileInfo)
-                .where(daily.id.eq(id))
-                // .where(eqId(id), eqUseyn())
-                // .where(eqId(id))
+                .where(daily.id.eq(Expressions.nullExpression()).or(eqId(id)))
                 .fetch();
 
         return Optional.of(resultQuery);

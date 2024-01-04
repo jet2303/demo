@@ -10,8 +10,6 @@ import java.util.*;
 
 public interface crudInterface<req, res> {
 
-    // Header<res> create(@ModelAttribute DailyDto dailyDto, @RequestPart(name =
-    // "uploadFiles") List<MultipartFile> uploadFiles);
     Header<res> create(Header<req> request);
 
     Header<res> read(Long id);

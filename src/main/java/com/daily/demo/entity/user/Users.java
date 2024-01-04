@@ -2,8 +2,10 @@ package com.daily.demo.entity.user;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.daily.demo.dto.request.UserRequest;
 import com.daily.demo.entity.auth.Provider;
 import com.daily.demo.entity.daily.BaseEntity;
+import com.daily.demo.entity.daily.enumData.Useyn;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -27,10 +29,9 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Table(name = "_user")
-@ToString
+@Table(name = "Users")
 @DynamicUpdate
-public class User extends BaseEntity {
+public class Users extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,10 +55,11 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    // providerId 용도 확인
     private String providerId;
 
     @Enumerated
-    private UserEnum useyn;
+    private Useyn useyn;
 
     public void updateName(String name) {
         this.name = name;
@@ -66,4 +68,30 @@ public class User extends BaseEntity {
     public void updateImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public void update(UserRequest userRequest) {
+        this.name = userRequest.getName();
+        this.imageUrl = userRequest.getImageUrl();
+        this.emailVerified = userRequest.getEmailVerified();
+        this.email = userRequest.getEmail();
+        // this.password = userRequest.getPassword()
+        this.provider = userRequest.getProvider();
+        this.providerId = userRequest.getProviderId();
+        // this.role = userRequest.getRole();
+        this.useyn = userRequest.getUseyn();
+    }
+
+    public void disableUser() {
+        this.useyn = Useyn.N;
+    }
+
+    @Override
+    public String toString() {
+        return "Users [id=" + id + ", name=" + name + ", imageUrl=" + imageUrl + ", emailVerified=" + emailVerified
+                + ", email=" + email + ", password=" + password + ", provider=" + provider + ", role=" + role
+                + ", providerId=" + providerId + ", useyn=" + useyn
+
+                + "]";
+    }
+
 }

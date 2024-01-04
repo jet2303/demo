@@ -179,14 +179,14 @@ public class QueryDslTest {
 
     @Test
     void read_fetch() {
-        Daily queryResult = dailyRepository.fetchQuery(1L);
+        Daily queryResult = dailyRepository.fetchQuery(3L);
         log.info("fetch : {}", queryResult.toString());
         assertEquals(2, queryResult.getFileInfoList().size());
     }
 
     @Test
     void read_queryDsl() {
-        Header<DailyResponse> queryResult = dailyService.read(1L);
+        Header<DailyResponse> queryResult = dailyService.read(3L);
         log.info("queryResult : {}", queryResult.getData().toString());
         assertEquals(2, queryResult.getData().getFileList().size());
     }

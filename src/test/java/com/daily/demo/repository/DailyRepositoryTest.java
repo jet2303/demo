@@ -54,7 +54,8 @@ public class DailyRepositoryTest {
                     "image/jpeg",
                     // new FileInputStream(new File(filePath + "\\" + fileName)));
                     new FileInputStream(
-                            new File("C:\\Users\\Su\\Desktop\\demo\\src\\test\\resources\\images\\image1.jpg")));
+                            new File(
+                                    "C:\\Users\\Su\\Desktop\\todoapp\\demo\\src\\test\\resources\\images\\image1.jpg")));
 
             fileInfos.add((MultipartFile) file1);
         } catch (FileNotFoundException fe) {

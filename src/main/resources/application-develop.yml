@@ -18,7 +18,7 @@ spring:
     jpa:
         hibernate:
             ddl-auto: create
-        # defer-datasource-initialization: true
+        defer-datasource-initialization: true
         database-platform: org.hibernate.dialect.H2Dialect
         properties:
             hibernate:
@@ -35,10 +35,22 @@ spring:
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # #  변수  # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
- 
+
+# file path 
 testfile:
     path: C:\Users\Su\Desktop\todoapp\demo\src\test\resources\images\
     name: image1.jpg
 testsave:
     folder: C:\Users\Su\Desktop\todoapp\demo\src\test\resources\savefolder\
 
+
+# jwt
+app:
+    auth:
+        tokenSecret: tokensecretkeytokensecretkeytokensecretkeytokensecretkeytokensecretkeytokensecretkeytokensecretkeytokensecretkey
+        accessTokenExpirationMsec: 1800000
+        refreshTokenExpirationMsec: 604800000
+    cors:
+        allowedOrigins: http://localhost:3000, http://localhost:8080
+    oauth2:
+        authorizedRedirectUris: http://localhost:3000/oauth2/redirect, myandroidapp://oauth2/redirect, myiosapp://oauth2/redirect

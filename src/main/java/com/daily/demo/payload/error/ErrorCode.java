@@ -3,9 +3,11 @@ package com.daily.demo.payload.error;
 import org.springframework.http.HttpStatus;
 
 public interface ErrorCode {
-    String name();
+
+    // String getName();
 
     HttpStatus getHttpStatus();
 
     String getMessage();
+
 }

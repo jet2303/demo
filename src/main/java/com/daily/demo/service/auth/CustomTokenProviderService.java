@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.daily.demo.config.security.UserPrincipal;
 import com.daily.demo.config.securityConfig.OAuth2Config;
 import com.daily.demo.entity.mapping.TokenMapping;
-import com.daily.demo.entity.user.User;
+import com.daily.demo.entity.user.Users;
 import com.daily.demo.repository.user.UserRepository;
 
 import io.jsonwebtoken.Claims;
@@ -67,22 +67,14 @@ public class CustomTokenProviderService {
     }
 
     public TokenMapping createToken(Authentication authentication) {
-        //////////////////////////////////////// 07.03 AJS 수정
-        //////////////////////////////////////// ////////////////////////////////////////
+
         String email = (String) authentication.getPrincipal();
-        User findUser = userRepository.findByEmail(email).get();
-        // User user = User.builder()
-        // .id(findUser.getId())
-        // .email(findUser.getEmail())
-        // .password(findUser.getPassword())
-        // .name(findUser.getName())
-        // .role(findUser.getRole())
-        // .build();
+        Users findUser = userRepository.findByEmail(email).get();
+
         UserPrincipal userPrincipal = UserPrincipal.create(findUser);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Date now = new Date();
 
         Date accessTokenExpiresIn = new Date(now.getTime() + oAuth2Config.getAuth().getAccessTokenExpirationMsec());

@@ -1,9 +1,7 @@
 package com.daily.demo.service.daily;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +16,8 @@ import com.daily.demo.dto.response.DailyResponse;
 import com.daily.demo.entity.daily.Daily;
 import com.daily.demo.entity.daily.FileInfo;
 import com.daily.demo.entity.daily.enumData.Useyn;
+import com.daily.demo.payload.error.CustomException;
+import com.daily.demo.payload.error.errorCodes.CommonErrorCode;
 import com.daily.demo.repository.DailyRepository;
 import com.daily.demo.repository.FileInfoRepository;
 
@@ -69,6 +69,12 @@ public class DailyServiceImpl implements crudInterface<DailyRequest, DailyRespon
     @Override
     public Header<DailyResponse> read(Long id) {
         List<DailyDto> query = dailyRepository.findByDailyId(id).get();
+        // .orElseThrow(() -> new
+        // CustomException(CommonErrorCode.INTERNAL_SERVER_ERROR));
+
+        if (query.size() == 0) {
+            throw new CustomException(CommonErrorCode.INTERNAL_SERVER_ERROR);
+        }
         List<FileInfo> fileList = new ArrayList<>();
 
         for (DailyDto dailyDto : query) {

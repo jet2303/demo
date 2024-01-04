@@ -2,9 +2,11 @@ package com.daily.demo.config.security;
 
 import java.io.IOException;
 
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -22,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomOncePerRequestFilter extends OncePerRequestFilter {
 
     private CustomTokenProviderService customTokenProviderService;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -45,4 +48,7 @@ public class CustomOncePerRequestFilter extends OncePerRequestFilter {
         }
         return null;
     }
+
+
+
 }
