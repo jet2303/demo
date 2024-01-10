@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.daily.demo.payload.error.RestApiException;
+import com.daily.demo.payload.error.CustomException;
 import com.daily.demo.payload.error.errorCodes.UserErrorCode;
 import com.daily.demo.service.auth.CustomUserDetailsService;
 
@@ -25,13 +25,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
+
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
+        // 사용자 인증을 여기서 하는게 맞을까...?
         if (userDetails == null) {
-            throw new RestApiException(UserErrorCode.NOT_FOUND_USER);
+            throw new CustomException(UserErrorCode.NOT_FOUND_USER);
         }
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-            throw new RestApiException(UserErrorCode.NOT_MATCHED_PASSWORD);
+            throw new CustomException(UserErrorCode.NOT_MATCHED_PASSWORD);
         }
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

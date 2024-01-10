@@ -23,6 +23,7 @@ public class ErrorResponse {
 
     @Builder
     ErrorResponse(String statusCode, String message, String timeStamp) {
+
         this.statusCode = statusCode;
         this.message = StringUtils.isNotBlank(message) ? message : CommonErrorCode.valueOfMessage(message).getMessage();
         this.timeStamp = StringUtils.isNotBlank(timeStamp) ? timeStamp

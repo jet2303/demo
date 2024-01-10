@@ -10,4 +10,6 @@ public interface ErrorCode {
 
     String getMessage();
 
+    String getStatusCode();
+
 }

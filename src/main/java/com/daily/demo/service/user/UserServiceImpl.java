@@ -10,6 +10,9 @@ import com.daily.demo.dto.response.UserResponse;
 import com.daily.demo.entity.daily.enumData.Useyn;
 import com.daily.demo.entity.user.Role;
 import com.daily.demo.entity.user.Users;
+import com.daily.demo.payload.error.CustomException;
+import com.daily.demo.payload.error.ErrorCode;
+import com.daily.demo.payload.error.errorCodes.UserErrorCode;
 import com.daily.demo.repository.user.UserCustomRepository;
 import com.daily.demo.repository.user.UserRepository;
 
@@ -24,6 +27,7 @@ import java.util.Optional;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
+    // UserRepository 제거
     private final UserRepository userRepository;
 
     private final UserCustomRepository userCustomRepository;
@@ -34,6 +38,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Header<UserResponse> create(Header<UserRequest> request) {
         UserRequest userRequest = request.getData();
+
+        // UserResponse findExistEmail =
+        // userCustomRepository.findEmail(userRequest.getEmail(), Useyn.Y)
+        // .orElseThrow(() -> new CustomException(UserErrorCode.USER_ALREADY_EXISTS));
+        if (existEmail(userRequest)) {
+            throw new CustomException(UserErrorCode.USER_ALREADY_EXISTS);
+        }
+
         Users user = Users.builder()
                 // .id(userRequest.getId())
                 .name(userRequest.getName())
@@ -118,4 +130,10 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    private boolean existEmail(UserRequest userRequest) {
+        // userCustomRepository.findEmail(userRequest.getEmail(),
+        // Useyn.Y).orElseThrow(() -> new
+        // CustomException(UserErrorCode.USER_ALREADY_EXISTS));
+        return userCustomRepository.findEmail(userRequest.getEmail(), Useyn.Y).isPresent();
+    }
 }

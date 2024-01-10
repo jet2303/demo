@@ -13,8 +13,8 @@ import com.daily.demo.dto.Header;
 import com.daily.demo.dto.request.LoginRequest;
 import com.daily.demo.dto.response.LoginResponse;
 import com.daily.demo.entity.mapping.TokenMapping;
-import com.daily.demo.payload.error.ErrorResponse;
-import com.daily.demo.payload.error.RestApiException;
+import com.daily.demo.payload.error.CustomException;
+import com.daily.demo.payload.error.errorCodes.CommonErrorCode;
 import com.daily.demo.payload.error.errorCodes.UserErrorCode;
 import com.daily.demo.repository.TokenRepository;
 import com.daily.demo.service.auth.CustomTokenProviderService;
@@ -41,12 +41,17 @@ public class LoginController {
 
         private final TokenRepository tokenRepository;
 
+        // 서비스단으로 뺄거 뺄것.
         @PostMapping("/authenticate")
         public ResponseEntity<LoginResponse> Login(@RequestBody LoginRequest request) {
 
                 Authentication authentication = authenticationManager
                                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),
                                                 request.getPassword()));
+                if (authentication.getPrincipal() == null) {
+                        // if (authentication.getPrincipal() != null) {
+                        throw new CustomException(UserErrorCode.CUSTOM_ERROR);
+                }
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 

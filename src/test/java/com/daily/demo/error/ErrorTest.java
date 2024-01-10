@@ -38,7 +38,7 @@ public class ErrorTest {
                     .andReturn();
             String result = mvcResult.getResponse().getContentAsString();
 
-            assertTrue(JsonPath.parse(result).read("$.timeStamp") == null);
+            assertEquals(500, mvcResult.getResponse().getStatus());
             assertEquals("Custom Internal server error", JsonPath.parse(result).read("$.message"));
 
         } catch (Exception e) {

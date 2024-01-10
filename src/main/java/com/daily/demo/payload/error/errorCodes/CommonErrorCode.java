@@ -16,22 +16,22 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public enum CommonErrorCode implements ErrorCode {
 
-    INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "Invalid parameter included"),
-    RESOURCE_NOT_FOUND(HttpStatus.NOT_FOUND, "Resource not exists"),
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Custom Internal server error");
+    INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "657", "Invalid parameter included"),
+    RESOURCE_NOT_FOUND(HttpStatus.NOT_FOUND, "658", "Resource not exists"),
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "659", "Custom Internal server error");
 
     private final HttpStatus httpStatus;
+    private final String statusCode;
     private final String message;
 
-    private static final Map<HttpStatus, CommonErrorCode> BY_STATUS_CODE = Stream.of(values())
-            .collect(Collectors.toMap(CommonErrorCode::getHttpStatus, Function.identity()));
+    private static final Map<String, CommonErrorCode> BY_STATUS_CODE = Stream.of(values())
+            .collect(Collectors.toMap(CommonErrorCode::getStatusCode, Function.identity()));
 
     private static final Map<String, CommonErrorCode> BY_MESSAGE = Stream.of(values())
-            .collect(Collectors.toMap(CommonErrorCode::getMessage, Function.identity()));
+            .collect(Collectors.toMap(CommonErrorCode::getStatusCode, Function.identity()));
 
     public static CommonErrorCode valueOfStatusCode(String statusCode) {
-        // return BY_STATUS_CODE.get(statusCode);
-        return BY_STATUS_CODE.get(HttpStatus.valueOf(statusCode));
+        return BY_STATUS_CODE.get(statusCode);
     }
 
     public static CommonErrorCode valueOfMessage(String message) {
