@@ -25,7 +25,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
         UserResponse response = jpaQueryFactory
                 .select(Projections.fields(UserResponse.class, users.id.as("id"), users.name.as("name"),
                         users.imageUrl.as("imageUrl"), users.emailVerified.as("emailVerified"), users.email.as("email"),
-                        users.password.as("password"), users.provider.as("provider"), users.role.as("Role"),
+                        users.password.as("password"), users.provider.as("provider"), users.role.as("role"),
                         users.providerId.as("providerId"), users.useyn.as("useYn"), users.createdBy.as("createdBy"),
                         users.createdDate.as("createdDate"), users.modifiedBy.as("modifiedBy"),
                         users.modifiedDate.as("modifiedDate")))

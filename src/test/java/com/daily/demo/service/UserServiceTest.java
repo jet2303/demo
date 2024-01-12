@@ -24,6 +24,7 @@ import com.daily.demo.entity.daily.enumData.Useyn;
 import com.daily.demo.entity.daily.enumData.Useyn;
 import com.daily.demo.entity.user.Role;
 import com.daily.demo.entity.user.Users;
+import com.daily.demo.payload.error.CustomException;
 import com.daily.demo.repository.user.UserCustomRepository;
 import com.daily.demo.repository.user.UserRepository;
 import com.daily.demo.service.user.UserService;
@@ -114,7 +115,9 @@ public class UserServiceTest {
 
         userService.delete(1L);
 
-        assertThrows(NoSuchElementException.class, () -> userService.read("testusers@test.com", Useyn.Y));
+        // assertThrows(NoSuchElementException.class, () ->
+        // userService.read("testusers@test.com", Useyn.Y));
+        assertThrows(CustomException.class, () -> userService.read("testusers@test.com", Useyn.Y));
 
     }
 }

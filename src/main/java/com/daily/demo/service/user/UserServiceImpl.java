@@ -27,7 +27,6 @@ import java.util.Optional;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    // UserRepository 제거
     private final UserRepository userRepository;
 
     private final UserCustomRepository userCustomRepository;
@@ -77,8 +76,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Header<UserResponse> read(String email, Useyn useyn) {
         // Users readUser = userRepository.findByEmail(email).get();
-        Optional<UserResponse> readUser = userCustomRepository.findEmail(email, useyn);
-        return Header.OK(Response(readUser.get()));
+        UserResponse readUser = userCustomRepository.findEmail(email, useyn)
+                .orElseThrow(() -> new CustomException(UserErrorCode.NOT_FOUND_USER));
+        return Header.OK(Response(readUser));
     }
 
     @Override

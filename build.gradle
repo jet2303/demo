@@ -48,6 +48,9 @@ dependencies {
 	// StringUtils
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 
+	// mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 	// Spring Security 추가
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

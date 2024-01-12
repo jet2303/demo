@@ -30,7 +30,20 @@ spring:
         console:
             enabled: true
             path: /h2-console
-
+    mail:
+        host: smtp.gmail.com        # SMTP 서버 호스트 (Google)
+        port: 587                   # SMTP 서버 포트 (Google 경우 587 사용)
+        username: wlstn2525         # SMTP 서버 로그인 아이디 (풀주소 사용 가능! Ex. Test@google.com)
+        password: cfjfxvvmnfiblchl  # SMTP 서버 로그인 패스워드 - 발급받은 앱 비밀번호 16자리!
+        properties:
+            mail:
+                debug : true        # SMTP Debug - 메일 전송시 상황, 로그를 확인 하는것.
+                smtp:
+                    connectionout: 5000 # TimeOut 제한
+                    starttls:   
+                        enable: true    # starttls 설정 = true --> SSL/TLS 기반의 SMTPS 기능 즉 보안기능 활성화
+                        required: true
+                    auth: false
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # #  변수  # # # # # # # # # # # # # # # # # # # # # # # # # # #

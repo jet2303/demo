@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.daily.demo.config.security.UserPrincipal;
 import com.daily.demo.config.securityConfig.OAuth2Config;
+import com.daily.demo.dto.response.UserResponse;
+import com.daily.demo.entity.daily.enumData.Useyn;
 import com.daily.demo.entity.mapping.TokenMapping;
 import com.daily.demo.entity.user.Users;
-import com.daily.demo.repository.user.UserRepository;
+import com.daily.demo.repository.user.UserCustomRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -25,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.Optional;
 import java.util.Base64.*;
 
 @RequiredArgsConstructor
@@ -39,7 +42,7 @@ public class CustomTokenProviderService {
     private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserCustomRepository userCustomRepository;
 
     public TokenMapping refreshToken(Authentication authentication, String refreshToken) {
 
@@ -69,9 +72,23 @@ public class CustomTokenProviderService {
     public TokenMapping createToken(Authentication authentication) {
 
         String email = (String) authentication.getPrincipal();
-        Users findUser = userRepository.findByEmail(email).get();
+        UserResponse findUser = userCustomRepository.findEmail(email, Useyn.Y).get();
+        Users user = Users.builder()
+                .id(findUser.getId())
+                .name(findUser.getName())
+                .imageUrl(findUser.getImageUrl())
+                .emailVerified(findUser.getEmailVerified())
+                .email(findUser.getEmail())
+                .password(findUser.getPassword())
+                .provider(findUser.getProvider())
+                .providerId(findUser.getProviderId())
+                .role(findUser.getRole())
+                .useyn(findUser.getUseyn())
+                .build();
 
-        UserPrincipal userPrincipal = UserPrincipal.create(findUser);
+        // Users findUser = userRepository.findByEmail(email).get();
+
+        UserPrincipal userPrincipal = UserPrincipal.create(user);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////
 
